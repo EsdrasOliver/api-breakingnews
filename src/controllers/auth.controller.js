@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt'
+/* import bcrypt from 'bcrypt'
 import { loginService, generateToken } from '../services/auth.service.js'
 
 const login = async (req, res) => {
@@ -26,4 +26,19 @@ const login = async (req, res) => {
     }
 }
 
-export { login }
+export { login } */
+
+import authService from "../services/auth.service.js";
+
+const loginController = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const token = await authService.loginService({ email, password });
+    return res.send(token);
+  } catch (e) {
+    return res.status(401).send(e.message);
+  }
+};
+
+export default { loginController };

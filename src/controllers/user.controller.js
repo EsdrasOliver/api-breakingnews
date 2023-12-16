@@ -1,6 +1,6 @@
 import userService from '../services/user.service.js'
 
-const create = async (req, res) => {
+/* const create = async (req, res) => {
     try {
         const {name, username, email, password, avatar, background} = req.body
 
@@ -28,9 +28,20 @@ const create = async (req, res) => {
     } catch (err) {
         res.status(500).send({ message: err.message })
     }
+} */
+
+const createUserController = async (req, res) => {
+    const body = req.body
+
+    try {
+        const user = await userService.createUserService(body)
+        return res.status(201).send(user)
+    } catch (err) {
+        return res.status(500).send(err.message)
+    }
 }
 
-const findAllUser = async (req, res) => {
+/* const findAllUser = async (req, res) => {
     try {
         const users = await userService.findAllService()
 
@@ -42,18 +53,39 @@ const findAllUser = async (req, res) => {
     } catch (err) {
         res.status(500).send({ message: err.message })
     }
+} */
+
+const findAllUserController = async (req, res) => {
+    try {
+        const users = await userService.findAllUserService()
+        return res.send(users)
+    } catch (err) {
+        return res.status(500).send(err.message)
+    }
 }
 
-const findById = async (req, res) => {
+/* const findById = async (req, res) => {
     try {
         const user = req.user
         res.send(user)
     } catch (err) {
         res.status(500).send({ message: err.message })
     } 
+} */
+
+const findUserByIdController = async (req, res) => {
+    const {id: userId} = req.params
+    const userIdLogged = req. userId
+
+    try {
+        const user = await userService.findByIdUserService(userId, userIdLogged) 
+        return res.send(user)
+    } catch (err) {
+        return res.status(500).send(err.message)
+    } 
 }
 
-const update = async (req, res) => {
+/* const update = async (req, res) => {
     try {
         const { name, username, email, password, avatar, background } = req.body
 
@@ -77,6 +109,21 @@ const update = async (req, res) => {
     } catch (err) {
         res.status(500).send({ message: err.message })
     } 
+} */
+
+const updateUserController = async (req, res) => {
+    const body = req.body
+    const userId = req.userId
+
+    try {
+        const response = await userService.updateUserService(body, userId)
+
+        return res.send(response)
+    } catch (err) {
+        return res.status(500).send({ message: err.message })
+    } 
 }
 
-export default { create, findAllUser, findById, update }
+/* export default { create, findAllUser, findById, update } */
+
+export default { createUserController, findAllUserController, findUserByIdController, updateUserController }
