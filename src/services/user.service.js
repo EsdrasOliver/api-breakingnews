@@ -28,7 +28,7 @@ const createUserService = async (body) => {
 
         if(!name || !username || !email || !password || !avatar || !background) throw new Error("Submit all fields for registration")
 
-        /* const newUser = { name, username, email, password, avatar, background } */
+        const newUser = { name, username, email, password, avatar, background } 
 
         const foundUser = await userRepositories.findByEmailUserRepository(email)
 
@@ -36,7 +36,7 @@ const createUserService = async (body) => {
             return res.status(400).send({ message: "User already exists" })
         } */
 
-        if(!foundUser) throw new Error("User already exists")
+        if(foundUser) throw new Error("User already exists")
 
         const user = await userRepositories.createRepository(newUser)
 

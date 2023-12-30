@@ -10,6 +10,6 @@ const findByIdUserRepository = (idUser) => User.findById(idUser)
 
 const updateUserRepository = (id, body) => User.findOneAndUpdate({ _id: id },{ body }, { rawResult: true })
 
-const findByEmailUserRepository = (email) => User.findOne({ email: email })
+const findByEmailUserRepository = (email) => User.find({ email: email })
 
 export default { createRepository, findAllUserRepository, findByIdUserRepository, updateUserRepository, findByEmailUserRepository }
